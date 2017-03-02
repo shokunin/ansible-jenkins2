@@ -1,0 +1,5 @@
+---
+# This file is not included by default. It can be included via a task:
+# include: "service_config_{{ ansible_os_family }}.yml"
+
+- meta: flush_handlers
