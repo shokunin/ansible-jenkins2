@@ -6,13 +6,13 @@
   get_url:
     url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
     dest: /etc/yum.repos.d/jenkins.repo
-    checksum: 1b0402adddacc6d8b58395572eff03fa
+    checksum: md5:1b0402adddacc6d8b58395572eff03fa
 
 - name: download the repo gpg key
   get_url:
     url: https://jenkins-ci.org/redhat/jenkins-ci.org.key
     dest: /var/tmp/.jenkins.key
-    checksum: 9500ca61a5a755c2d3d5815e94142f6d
+    checksum: md5:9500ca61a5a755c2d3d5815e94142f6d
 
 - name: import the jenkins key
   rpm_key:
