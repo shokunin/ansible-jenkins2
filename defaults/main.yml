@@ -6,7 +6,7 @@
 # Jenkins doesn't (and shouldn't) run as root, so this must be over 1024.
 jenkins_port: 8080
 
-# The context path that Jenkins will be hosted at, e.g. '/foo' in 
+# The context path that Jenkins will be hosted at, e.g. '/foo' in
 # 'http://localhost:8080/foo'. Leave as '' to host at root path.
 jenkins_context_path: ''
 
@@ -16,23 +16,23 @@ jenkins_context_path: ''
 # will try to auto-discover this (which won't work correctly if it's proxied).
 jenkins_url_external: ''
 
-# The list of possible Jenkins admin users (and their security realm). At 
-# Jenkins startup, the current security realm will be checked, and the first 
-# user in this list that is found to match that security realm will have their 
+# The list of possible Jenkins admin users (and their security realm). At
+# Jenkins startup, the current security realm will be checked, and the first
+# user in this list that is found to match that security realm will have their
 # SSH key set to allow SSH/CLI logins using the primary SSH key of the server's
-# `jenkins` system user account. Any other Jenkins users with that SSH key set 
+# `jenkins` system user account. Any other Jenkins users with that SSH key set
 # will have it removed, to prevent lookup conflicts.
 # If you're using an alternative authorization system (i.e. security realm),
 # this list will likely need to be modified to include the user ID of one of a
-# valid user from that realm (unless it also happens to have an `admin` 
+# valid user from that realm (unless it also happens to have an `admin`
 # account).
 jenkins_admin_users:
   - 'hudson.security.HudsonPrivateSecurityRealm:admin'
 
-# The plugins that the Jenkins 2.0 setup wizard installs by default. Currently, 
+# The plugins that the Jenkins 2.0 setup wizard installs by default. Currently,
 # the best place to find this list seems to be in the source, here:
 # https://github.com/jenkinsci/jenkins/blob/master/war/src/main/js/api/plugins.js
-jenkins_plugins_recommended: 
+jenkins_plugins_recommended:
   - ant
   - antisamy-markup-formatter
   - build-timeout
@@ -53,9 +53,13 @@ jenkins_plugins_recommended:
   - github-organization-folder
   - ws-cleanup
 
-# The additional plugins that users of this role would like to be installed 
+# The additional plugins that users of this role would like to be installed
 # (must be overridden).
 jenkins_plugins_extra: []
 
 # Additional options that will be added to JAVA_ARGS
 jenkins_java_args_extra: ''
+
+jenkins_version: 2.48-1.1
+jenkins_yum_repo_checksum: md5:1b0402adddacc6d8b58395572eff03fa
+jenkins_repo_key_checksum: md5:9500ca61a5a755c2d3d5815e94142f6d
