@@ -72,6 +72,15 @@
 
 # The CLI comes "baked in" to the Jenkins WAR. Easiest way to extract it is
 # just to download it.
+- name: Ensure Jenkins is Running
+  uri:
+    url: "http://localhost:{{ jenkins_port }}{{ jenkins_context_path | default('') }}/jnlpJars/jenkins-cli.jar"
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 60
+  delay: 1
+
 - name: Get Jenkins CLI
   get_url:
     url: "http://localhost:{{ jenkins_port }}{{ jenkins_context_path | default('') }}/jnlpJars/jenkins-cli.jar"
@@ -79,11 +88,7 @@
     owner: jenkins
     group: jenkins
     mode: 0444
-  register: cli_grab
   become: true
-  until: cli_grab.status == 200
-  retries: 5
-  delay: 10
 
 - name: Verify CLI
   shell: "java -jar /opt/jenkins/jenkins-cli.jar -s http://localhost:{{ jenkins_port }}{{ jenkins_context_path | default('') }} who-am-i"
