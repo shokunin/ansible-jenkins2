@@ -53,7 +53,7 @@
   notify:
     - "Restart Service 'jenkins'"
 
-# Fire any pending restart handlers now, as all of the above scripts will not 
+# Fire any pending restart handlers now, as all of the above scripts will not
 # be run until Jenkins restarts, and are required in order for the CLI-using
 # tasks below to work.
 - meta: flush_handlers
@@ -70,7 +70,7 @@
     mode: 0755
   become: true
 
-# The CLI comes "baked in" to the Jenkins WAR. Easiest way to extract it is 
+# The CLI comes "baked in" to the Jenkins WAR. Easiest way to extract it is
 # just to download it.
 - name: Get Jenkins CLI
   get_url:
@@ -87,3 +87,12 @@
   become: true
   become_user: jenkins
   changed_when: false
+  when: "{{jenkins_url_external}} == ''"
+
+- name: Verify CLI
+  shell: "java -jar /opt/jenkins/jenkins-cli.jar -s http://{{jenkins_url_external}}:{{ jenkins_port }}{{ jenkins_context_path | default('') }} who-am-i"
+  register: cli_whoami
+  become: true
+  become_user: jenkins
+  changed_when: false
+  when: "{{jenkins_url_external}} != ''"

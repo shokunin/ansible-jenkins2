@@ -1,5 +1,15 @@
 ---
 
+- name: Ensure hosts file is correct
+  lineinfile:
+    path: /etc/hosts
+    regexp: "{{jenkins_url_external}}"
+    line: "{{ ansible_eth0.ipv4.address }} {{jenkins_url_external}}"
+    owner: root
+    group: root
+    mode: 064
+  when: "{{jenkins_url_external}} != ''"
+
 # Install all OS packages (including Jenkins itself).
 - include: "packages_{{ ansible_os_family }}.yml"
 
@@ -41,7 +51,7 @@
   become: true
 
 - name: Grab Jenkins Web UI Content
-  # By default, Jenkins 2 is set to require auth, so the only page we can grab 
+  # By default, Jenkins 2 is set to require auth, so the only page we can grab
   # without getting a 403 and redirect is the login page.
   uri:
     url: "http://localhost:{{ jenkins_port }}{{ jenkins_context_path | default('') }}/login"
