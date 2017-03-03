@@ -19,6 +19,11 @@
     state: present
     key: /var/tmp/.jenkins.key
 
+- name: install the Jenkins fonts
+  yum:
+    name: "dejavu-sans-fonts"
+    state: present
+
 - name: install the Jenkins package
   yum:
     name: "jenkins-{{jenkins_version}}"
