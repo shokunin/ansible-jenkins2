@@ -80,6 +80,9 @@
     group: jenkins
     mode: 0444
   become: true
+  until: status == 200
+  retries: 5
+  delay: 10
 
 - name: Verify CLI
   shell: "java -jar /opt/jenkins/jenkins-cli.jar -s http://localhost:{{ jenkins_port }}{{ jenkins_context_path | default('') }} who-am-i"
