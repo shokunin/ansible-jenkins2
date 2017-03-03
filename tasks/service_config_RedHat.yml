@@ -2,4 +2,15 @@
 # This file is not included by default. It can be included via a task:
 # include: "service_config_{{ ansible_os_family }}.yml"
 
+
+- name: Jenkins Run Params
+  template:
+    src: jenkins.options.j2
+    dest: /etc/sysconfig/jenkins
+    mode: 0600
+    owner: root
+    group: root
+  notify:
+    - "Restart Service 'jenkins'"
+
 - meta: flush_handlers
