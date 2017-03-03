@@ -1,8 +1,7 @@
 ---
 
-- name: Ensure hosts file is correct
-  lineinfile:
-    path: /etc/hosts
+  - lineinfile:
+    name: /etc/hosts
     regexp: "{{jenkins_url_external}}"
     line: "{{ ansible_eth0.ipv4.address }} {{jenkins_url_external}}"
     owner: root
