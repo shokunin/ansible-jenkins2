@@ -20,9 +20,10 @@
     key: /var/tmp/.jenkins.key
 
 - name: install the Jenkins fonts
-  yum:
-    name: "dejavu-sans-fonts"
-    state: present
+  yum: pkg={{item}} state=installed
+  with_items: 
+   - dejavu-sans-fonts
+   - fontconfig
 
 - name: install the Jenkins package
   yum:
