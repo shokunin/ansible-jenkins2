@@ -87,7 +87,7 @@
   become: true
   become_user: jenkins
   changed_when: false
-  when: "{{jenkins_url_external}} == ''"
+  when: jenkins_url_external == ''
 
 - name: Verify CLI
   shell: "java -jar /opt/jenkins/jenkins-cli.jar -s http://{{jenkins_url_external}}:{{ jenkins_port }}{{ jenkins_context_path | default('') }} who-am-i"
@@ -95,4 +95,4 @@
   become: true
   become_user: jenkins
   changed_when: false
-  when: "{{jenkins_url_external}} != ''"
+  when: jenkins_url_external != ''

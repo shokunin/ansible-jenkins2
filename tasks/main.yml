@@ -8,7 +8,7 @@
     owner: root
     group: root
     mode: 064
-  when: "{{jenkins_url_external}} != ''"
+  when: jenkins_url_external != ''
 
 # Install all OS packages (including Jenkins itself).
 - include: "packages_{{ ansible_os_family }}.yml"
