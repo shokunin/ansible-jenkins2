@@ -79,8 +79,9 @@
     owner: jenkins
     group: jenkins
     mode: 0444
+  register: cli_grab
   become: true
-  until: status == 200
+  until: cli_grab.status == 200
   retries: 5
   delay: 10
 
