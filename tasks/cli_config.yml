@@ -16,11 +16,30 @@
   notify:
     - "Restart Service 'jenkins'"
 
-- name: Generate SSH Keys for jenkins Service Account
+- name: Generate SSH Keys for jenkins Service Account if not provided
   user:
     name: jenkins
     generate_ssh_key: yes
   become: true
+  when: jenkins_ssh_key == ''
+
+- name: Copy SSH key for Jenkins Service Account when provided
+  copy:
+    src: "{{ jenkins_ssh_key }}"
+    dest: /var/lib/jenkins/.ssh/id_rsa
+    owner: jenkins
+    group: jenkins
+    mode: 0600
+  when: jenkins_ssh_key != ''
+
+- name: Copy SSH key for Jenkins Service Account when provided
+  copy:
+    src: "{{ jenkins_ssh_pub }}"
+    dest: /var/lib/jenkins/.ssh/id_rsa.pub
+    owner: jenkins
+    group: jenkins
+    mode: 0644
+  when: jenkins_ssh_pub != ''
 
 - name: Read SSH Public Key for jenkins Service Account
   shell: cat /var/lib/jenkins/.ssh/id_rsa.pub

@@ -63,3 +63,6 @@ jenkins_java_args_extra: ''
 jenkins_version: 2.48-1.1
 jenkins_yum_repo_checksum: md5:1b0402adddacc6d8b58395572eff03fa
 jenkins_yum_key_checksum: md5:9500ca61a5a755c2d3d5815e94142f6d
+
+jenkins_ssh_key: ''
+jenkins_ssh_pub: ''
