@@ -24,6 +24,15 @@
   when: jenkins_ssh_key == ''
 
 - name: Copy SSH key for Jenkins Service Account when provided
+  file:
+    path: /var/lib/jenkins/.ssh
+    owner: jenkins
+    group: jenkins
+    mode: 0700
+    state: directory
+  when: jenkins_ssh_key != ''
+
+- name: Copy SSH key for Jenkins Service Account when provided
   copy:
     src: "{{ jenkins_ssh_key }}"
     dest: /var/lib/jenkins/.ssh/id_rsa
